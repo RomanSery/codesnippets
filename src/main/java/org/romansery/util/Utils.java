@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public final class Utils {
 
-	private static String client = null;
+	private static String customer = null;
 	private static Properties mergedEnumProperties = null;
 
     private Utils() {
@@ -20,7 +20,7 @@ public final class Utils {
 
     public static Properties getMergedEnumProperties() {
 	    if(mergedEnumProperties == null) {
-            mergedEnumProperties = Utils.getMergedProperties("enum_props.properties", "enum_props_" + Utils.getClient() + ".properties");
+            mergedEnumProperties = Utils.getMergedProperties("enum_props.properties", "enum_props_" + Utils.getCustomer() + ".properties");
         }
         return mergedEnumProperties;
     }
@@ -44,7 +44,7 @@ public final class Utils {
     }
 
 
-    private static Properties loadProperties(String path) {
+    public static Properties loadProperties(String path) {
         Properties properties = new Properties();
         try (
                 InputStream in = Utils.class.getClassLoader().getResourceAsStream(path);
@@ -59,11 +59,11 @@ public final class Utils {
         return null;
     }
 
-    private static String getClient() {
-        if(client == null) {
-            client = getVariable("CLIENT");
+    public static String getCustomer() {
+        if(customer == null) {
+            customer = getVariable("CUSTOMER");
         }
-        return client;
+        return customer;
     }
 
     private static String getVariable(String name) {

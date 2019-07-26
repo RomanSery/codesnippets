@@ -17,6 +17,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <wicket.version>8.4.0</wicket.version>
+    <springframework.version>5.1.5.RELEASE</springframework.version>
   </properties>
 
   <dependencies>
@@ -48,7 +49,22 @@
       <artifactId>wicket-devutils</artifactId>
       <version>${wicket.version}</version>
     </dependency>
+
+
+    <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
   </dependencies>
+
+
 
   <build>
     <defaultGoal>install</defaultGoal>
