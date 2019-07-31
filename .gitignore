@@ -1,0 +1,7 @@
+/target
+/src/main/WEB-INF/classes
+/bin
+/.settings/
+/.classpath
+/.idea
+/out
