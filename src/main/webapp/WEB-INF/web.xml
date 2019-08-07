@@ -24,7 +24,7 @@
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
 		<init-param>
 		  <param-name>applicationClassName</param-name>
-		  <param-value>org.romansery.webapp.SampleApplication</param-value>
+		  <param-value>org.coderdreams.webapp.SampleApplication</param-value>
 		</init-param>		
 	</filter>
 

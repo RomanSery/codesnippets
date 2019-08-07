@@ -16,7 +16,9 @@
 
 	<context:property-placeholder location="classpath*:application.properties" />
 
-	<context:component-scan base-package="org.romansery" />
-	<context:component-scan base-package="org.romansery.service" />
+	<context:component-scan base-package="org.coderdreams" />
+	<context:component-scan base-package="org.coderdreams.service" />
+
+	<bean id="panelFactory" class="org.coderdreams.webapp.PanelFactory"></bean>
 
 </beans>

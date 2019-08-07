@@ -1,8 +1,8 @@
-package org.romansery.service;
+package org.coderdreams.service;
 
-import org.romansery.dom.User;
-import org.romansery.enums.UsernameDisplayType;
-import org.romansery.util.SiteConfig;
+import org.coderdreams.dom.User;
+import org.coderdreams.enums.UsernameDisplayType;
+import org.coderdreams.util.SiteConfig;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package org.romansery.enums;
+package org.coderdreams.enums;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.romansery.util.Utils;
+import org.coderdreams.util.Utils;
 
 public interface GenericEnum extends Serializable {
 		

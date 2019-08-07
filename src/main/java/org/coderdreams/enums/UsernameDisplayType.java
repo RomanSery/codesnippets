@@ -1,4 +1,4 @@
-package org.romansery.enums;
+package org.coderdreams.enums;
 
 public enum UsernameDisplayType {
     LAST_FIRST,

@@ -1,4 +1,4 @@
-package org.romansery.enums;
+package org.coderdreams.enums;
 
 import java.util.List;
 
