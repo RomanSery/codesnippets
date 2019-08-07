@@ -12,6 +12,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.CustomRequestLogger;
+import org.coderdreams.webapp.page.HomePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

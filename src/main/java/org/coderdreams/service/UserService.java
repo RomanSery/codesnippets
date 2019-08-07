@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
+    public String getUserName() {
+        return getUserName(getLoggedInUser());
+    }
+
     public String getUserName(User usr) {
         //for some, if not active, return "Temp-user-${userId}"
         if(!usr.isActive() && SiteConfig.SHOW_INACTIVE_USERS_AS_TEMP.getBoolean()) {
@@ -27,5 +31,11 @@ public class UserService {
             return usr.getLastName() + "(" + usr.getId() + ")";
         }
         return null;
+    }
+
+
+    public User getLoggedInUser() {
+        //dummy method
+        return new User(1, "Wicket", "Wicked", true);
     }
 }

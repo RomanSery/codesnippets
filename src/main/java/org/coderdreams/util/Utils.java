@@ -4,9 +4,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 public final class Utils {
 
@@ -17,6 +25,20 @@ public final class Utils {
         throw new IllegalStateException("Utility class");
     }
 
+
+    public static Set<Class<?>> getCustomerSpecificTypes(String packageName) {
+        TypeAnnotationsScanner s2 = new TypeAnnotationsScanner();
+        s2.setResultFilter(s -> Objects.equals(s, CustomerSpecific.class.getName()));
+
+        ConfigurationBuilder config = new ConfigurationBuilder()
+                .setUrls(ClasspathHelper.forPackage(packageName))
+                .setScanners(new SubTypesScanner(), s2);
+
+        Reflections reflections = new Reflections(config);
+
+        Set<Class<?>> annotatedTypes = reflections.getTypesAnnotatedWith(CustomerSpecific.class);
+        return annotatedTypes == null ? Collections.emptySet() : annotatedTypes;
+    }
 
     public static Properties getMergedEnumProperties() {
 	    if(mergedEnumProperties == null) {

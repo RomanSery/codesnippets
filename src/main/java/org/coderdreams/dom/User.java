@@ -11,6 +11,13 @@ public class User {
 
     }
 
+    public User(int id, String lastName, String firstName, boolean isActive) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.isActive = isActive;
+    }
+
     public int getId() {
         return id;
     }
