@@ -20,41 +20,38 @@ public abstract class SingleClickAjaxButton extends IndicatingAjaxButton {
 		this.confirmationMessageModel = confirmationMessageModel;
 	}
 
-
     @Override
     protected void onError(AjaxRequestTarget target) {
+	    //on error, just re-enable
         error(target);
-        target.appendJavaScript("$('#"+this.getMarkupId()+"').prop('disabled', false);");
-    }
-
-    @Override
-    protected void onSubmit(AjaxRequestTarget target) {
-        if(submit(target)) {
-            target.appendJavaScript("$('#"+this.getMarkupId()+"').prop('disabled', false);");
-        }
+        enableButton(target);
     }
 
     @Override
     protected void onAfterSubmit(AjaxRequestTarget target) {
         if(enableButtonAfterSubmit) {
-            target.appendJavaScript("$('#"+this.getMarkupId()+"').prop('disabled', false);");
+            enableButton(target);
         }
     }
 
-    /**
-     * @return true to re-enable the button
-     */
-    protected abstract boolean submit(AjaxRequestTarget target);
+    protected void enableButton(AjaxRequestTarget target) {
+        target.appendJavaScript("$('#"+this.getMarkupId()+"').prop('disabled', false);");
+    }
 
     @Override
 	protected String getOnClickScript() {
-        return "$('#"+this.getMarkupId()+"').prop('disabled', true); setTimeout(function() { $('#"+this.getMarkupId()+"').prop('disabled', false); }, 10000);";
+        //if the button should be re-enabled but hasnt due to some error, automatically re-enable it after 10 seconds
+        if(enableButtonAfterSubmit) {
+            return "$('#"+this.getMarkupId()+"').prop('disabled', true); setTimeout(function() { $('#"+this.getMarkupId()+"').prop('disabled', false); }, 10000);";
+        }
+        return null;
     }
 
     protected void error(AjaxRequestTarget target) { }
 
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+        //show a JS confirm prompt
 		if(confirmationMessageModel != null && confirmationMessageModel.getObject() != null) {
 			attributes.getAjaxCallListeners().add(new AjaxCallListener(){
 				private static final long serialVersionUID = 1L;
