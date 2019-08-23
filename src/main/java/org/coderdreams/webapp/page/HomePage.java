@@ -8,7 +8,7 @@ import org.coderdreams.webapp.BasePage;
 import org.coderdreams.webapp.PanelFactory;
 import org.coderdreams.webapp.panels.WelcomeMsgPanel;
 
-public class HomePage extends BasePage {
+public class HomePage extends BasePage implements IBasePage {
     @SpringBean private PanelFactory panelFactory;
 
     public HomePage() {

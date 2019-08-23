@@ -8,7 +8,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.coderdreams.webapp.BasePage;
 import org.coderdreams.webapp.components.SingleClickAjaxButton;
 
-public class SingleClickPage extends BasePage {
+public class SingleClickPage extends BasePage implements IBasePage {
 
     private String testInput;
 
