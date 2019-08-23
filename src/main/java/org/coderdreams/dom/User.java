@@ -1,11 +1,19 @@
 package org.coderdreams.dom;
 
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String lastName;
     private String firstName;
     private boolean isActive;
+    private String displayName;
+    private List<String> favGenres;
 
     public User() {
 
@@ -63,5 +71,24 @@ public class User {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public List<String> getFavGenres() {
+        if(favGenres == null) {
+            favGenres = new ArrayList<>();
+        }
+        return favGenres;
+    }
+
+    public void setFavGenres(List<String> favGenres) {
+        this.favGenres = favGenres;
     }
 }
