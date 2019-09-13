@@ -32,7 +32,7 @@ public class SampleApplication extends WebApplication {
     	this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
     	SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 
-
+		getDebugSettings().setDevelopmentUtilitiesEnabled(true);
         getRequestLoggerSettings().setRequestLoggerEnabled(true);
         getRequestLoggerSettings().setRequestsWindowSize(5); //set # of requests to store
 
