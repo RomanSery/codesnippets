@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.coderdreams.enums.CountryCode;
+import org.coderdreams.enums.State;
+
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -14,6 +17,8 @@ public class User implements Serializable {
     private boolean isActive;
     private String displayName;
     private List<String> favGenres;
+    private State state;
+    private CountryCode countryCode;
 
     public User() {
 
@@ -90,5 +95,21 @@ public class User implements Serializable {
 
     public void setFavGenres(List<String> favGenres) {
         this.favGenres = favGenres;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public CountryCode getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(CountryCode countryCode) {
+        this.countryCode = countryCode;
     }
 }

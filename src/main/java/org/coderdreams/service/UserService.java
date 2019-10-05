@@ -1,5 +1,9 @@
 package org.coderdreams.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.coderdreams.dom.User;
 import org.coderdreams.enums.UsernameDisplayType;
 import org.coderdreams.util.SiteConfig;
@@ -7,6 +11,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    public List<User> getAllUsers() {
+        List<User> arr = new ArrayList<>();
+        for(int i = 1; i <= 5000; i++) {
+            User u = new User();
+            u.setId(i);
+            u.setFirstName("fname_"+i);
+            u.setLastName("lname_"+i);
+            arr.add(u);
+        }
+        return arr;
+    }
 
     public String getUserName() {
         return getUserName(getLoggedInUser());

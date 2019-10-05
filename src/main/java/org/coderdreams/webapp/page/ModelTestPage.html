@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
+<span wicket:id="debug"/>
 
     <form wicket:id="testForm">
 
         <input type="text" wicket:id="displayName" />
         <br />
         <select wicket:id="favGenres"></select>
+        <br />
+        Country: <select wicket:id="country"></select>
+        <br />
+        State: <select wicket:id="state"></select>
+        <br />
+        <br />
+
+        Addr: <span wicket:id="stateCountry"></span>
+        <br />
+
+        Select User: <select wicket:id="userSelection"></select>
         <br />
 
         <button type="submit" value="Submit" wicket:id="singleClickBtn">Submit</button>
