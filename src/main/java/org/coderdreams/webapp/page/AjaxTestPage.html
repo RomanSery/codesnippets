@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+
+<script type="text/javascript">
+    "use strict";
+    jQuery(document).ready(function() {
+        $('#refreshBtn').click(function() {
+            Wicket.Ajax.get({
+                u: refresh_user_count_url,
+                ep: {'data1': "abc", 'data2': "gregregre"}
+            });
+        });
+    });
+</script>
+
+
+    <a href="#" id="refreshBtn">Refresh Users</a>
+    <br />
+    Num users: <div wicket:id="usersCountLbl"></div>
+
+</body>
+</html>

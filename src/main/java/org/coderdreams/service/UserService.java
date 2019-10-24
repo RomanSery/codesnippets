@@ -3,6 +3,7 @@ package org.coderdreams.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.coderdreams.dom.User;
 import org.coderdreams.enums.UsernameDisplayType;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    private Random rand = new Random();
 
     public List<User> getAllUsers() {
         List<User> arr = new ArrayList<>();
@@ -22,6 +25,10 @@ public class UserService {
             arr.add(u);
         }
         return arr;
+    }
+
+    public Integer getUserCount() {
+        return rand.nextInt((100 - 10) + 1) + 10;
     }
 
     public String getUserName() {
