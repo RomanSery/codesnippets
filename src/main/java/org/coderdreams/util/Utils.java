@@ -5,11 +5,14 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.string.StringValue;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
@@ -94,5 +97,31 @@ public final class Utils {
             result = System.getenv(name);
         }
         return result;
+    }
+
+    public static String mapToString(PageParameters params) {
+        if(params == null || params.isEmpty()) {
+            return StringUtils.EMPTY;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String key : params.getNamedKeys()) {
+            if (sb.length() > 0) sb.append('&');
+
+            StringValue value = params.get(key);
+            if(value != null) {
+                sb.append(key).append('=').append(value);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static PageParameters getParamsFromMap(Map<String, String> map) {
+        PageParameters params = new PageParameters();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            params.add(entry.getKey(), entry.getValue());
+        }
+        return params;
     }
 }

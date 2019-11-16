@@ -13,6 +13,7 @@ public class CipherService {
 	private GCMCipherService gcmCipher = new GCMCipherService();
 	private CbcAeCipherService cbcAeCipher = new CbcAeCipherService();
 
+	private final EncryptionType defaultEncryptionType = EncryptionType.CBCAE;
 	private byte[] cipherKeyBytes;
 
 	static {
@@ -22,6 +23,9 @@ public class CipherService {
 		}
 	}
 
+    public String encryptAndBase64Encode(String secretString) {
+        return encryptAndBase64Encode(secretString, cipherKeyBytes, defaultEncryptionType);
+    }
 	public String encryptAndBase64Encode(String secretString, EncryptionType type) {
 		return encryptAndBase64Encode(secretString, cipherKeyBytes, type);
 	}
@@ -35,6 +39,9 @@ public class CipherService {
 	}
 
 
+    public String base64DecodeAndDecrypt(String base64EncodedEncryptedString) throws Exception {
+        return base64DecodeAndDecrypt(base64EncodedEncryptedString, cipherKeyBytes, defaultEncryptionType);
+    }
 	public String base64DecodeAndDecrypt(String base64EncodedEncryptedString, EncryptionType type) throws Exception {
 		return base64DecodeAndDecrypt(base64EncodedEncryptedString, cipherKeyBytes, type);
 	}
