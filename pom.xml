@@ -120,8 +120,6 @@
       <artifactId>shiro-core</artifactId>
       <version>1.4.1</version>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-ext-jdk15on -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-ext-jdk15on</artifactId>

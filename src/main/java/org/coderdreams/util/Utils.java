@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -122,6 +123,22 @@ public final class Utils {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             params.add(entry.getKey(), entry.getValue());
         }
+        return params;
+    }
+
+    public static PageParameters stringToParams(String input) {
+        if(input == null || input.length() == 0) {
+            return new PageParameters();
+        }
+
+        PageParameters params = new PageParameters();
+
+        String[] nameValuePairs = input.split("&");
+        for (String nameValuePair : nameValuePairs) {
+            String[] nameValue = nameValuePair.split("=");
+            params.add(nameValue[0], nameValue.length > 1 ? nameValue[1] : "");
+        }
+
         return params;
     }
 }

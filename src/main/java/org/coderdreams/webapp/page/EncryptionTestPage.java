@@ -14,9 +14,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.coderdreams.service.Encryptor;
 import org.coderdreams.shiro.CipherService;
 import org.coderdreams.shiro.EncryptionType;
-import org.coderdreams.util.UIHelpers;
 import org.coderdreams.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +28,7 @@ public class EncryptionTestPage extends WebPage {
 	
 	private final static Logger logger = LoggerFactory.getLogger(EncryptionTestPage.class);
 	private @SpringBean CipherService cipherService;
+	private @SpringBean Encryptor encryptor;
 
 	public EncryptionTestPage(final PageParameters parameters) {
 		super(parameters);
@@ -35,6 +36,7 @@ public class EncryptionTestPage extends WebPage {
 		add(new FeedbackPanel("feedback"));
 		add(new EarnLinkForm("earnLinkform"));
         add(new CreateLinkForm("createLinkform"));
+		add(new DecryptLinkForm("decryptLinkform"));
     }
 
 
@@ -52,7 +54,7 @@ public class EncryptionTestPage extends WebPage {
             if(plainText == null) plainText = "";
             try {
                 Map<String, String> map = Splitter.on('&').withKeyValueSeparator('=').split(plainText);
-                String encryptedUrl = UIHelpers.createEncryptedUrl(cipherService, EncryptionTestPage.class, Utils.getParamsFromMap(map));
+                String encryptedUrl = encryptor.createEncryptedUrl(EncryptionTestPage.class, Utils.getParamsFromMap(map));
                 info(encryptedUrl);
             } catch (Exception e) {
                 logger.error("error dercrypting",e);
@@ -61,6 +63,27 @@ public class EncryptionTestPage extends WebPage {
         }
     }
 
+
+	private class DecryptLinkForm extends StatelessForm<DecryptLinkForm> {
+		private static final long serialVersionUID = 1L;
+		private String encryptedText;
+		DecryptLinkForm(final String id) {
+			super(id);
+			this.setDefaultModel(new CompoundPropertyModel<DecryptLinkForm>(this));
+			add(new TextField<String>("encryptedText"));
+		}
+
+		@Override
+		public final void onSubmit() {
+			if(encryptedText == null) encryptedText = "";
+			try {
+				info(encryptor.decryptUrl(encryptedText));
+			} catch (Exception e) {
+				logger.error("error dercrypting",e);
+				error(e.getMessage());
+			}
+		}
+	}
 
 
 	private class EarnLinkForm extends StatelessForm<EarnLinkForm> {
