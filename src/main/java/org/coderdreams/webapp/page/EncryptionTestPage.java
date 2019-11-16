@@ -2,6 +2,7 @@ package org.coderdreams.webapp.page;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -51,24 +52,18 @@ public class EncryptionTestPage extends WebPage {
 		}
 		
 		@Override
-		public final void onSubmit() {				
-			
-			if(privateKey == null || privateKey.length() == 0) {
-				error("Enter the privateKey");
-				return;
-			}
-			
+		public final void onSubmit() {
 			if(plainText == null) plainText = "";
 			if(encText == null) encText = "";
 			if(encType == null ) encType = EncryptionType.GCM;
 			
 			try {
 				if(plainText.length() > 0) {
-					String encryptedString = cipherService.encryptAndBase64Encode(plainText, Base64.decode(privateKey), encType);
+					String encryptedString = StringUtils.isBlank(privateKey) ? cipherService.encryptAndBase64Encode(plainText, encType) : cipherService.encryptAndBase64Encode(plainText, Base64.decode(privateKey), encType);
 					this.get("encText").setDefaultModelObject(encryptedString);
 					this.get("plainText").setDefaultModelObject(null);
 				} else if(encText.length() > 0) {
-					String decryptedString = cipherService.base64DecodeAndDecrypt(encText, Base64.decode(privateKey), encType);
+					String decryptedString = StringUtils.isBlank(privateKey) ? cipherService.base64DecodeAndDecrypt(encText, encType) : cipherService.base64DecodeAndDecrypt(encText, Base64.decode(privateKey), encType);
 					this.get("encText").setDefaultModelObject(null);
 					this.get("plainText").setDefaultModelObject(decryptedString);
 				}

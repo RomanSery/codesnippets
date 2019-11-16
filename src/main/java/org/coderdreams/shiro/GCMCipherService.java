@@ -9,27 +9,27 @@ import org.apache.wicket.util.crypt.Base64;
 
 class GCMCipherService extends DefaultBlockCipherService {
 
-	private static final String ALGORITHM_NAME = "AES";
+    private static final String ALGORITHM_NAME = "AES";
 
-	public GCMCipherService() {
-		super(ALGORITHM_NAME);
-		setMode(OperationMode.GCM);
-		setPaddingScheme(PaddingScheme.NONE);
-	}
+    GCMCipherService() {
+        super(ALGORITHM_NAME);
+        setMode(OperationMode.GCM);
+        setPaddingScheme(PaddingScheme.NONE);
+    }
 
-	public String encrypt(String secretString, byte[] cipherKey) {
+    String encrypt(String secretString, byte[] cipherKey) {
 
-		byte[] secretBytes = CodecSupport.toBytes(secretString);
-		ByteSource encryptedBytes = this.encrypt(secretBytes, cipherKey);
-		return new Base64(true).encodeToString(encryptedBytes.getBytes());
-	}
-	
-	public String decrypt(String base64EncodedEncryptedString, byte[] cipherKey) throws Exception {
-		byte[] encryptedEncodedBytes = CodecSupport.toBytes(base64EncodedEncryptedString);
-		byte[] encryptedBytes = new Base64(true).decode(encryptedEncodedBytes);
-		
-		ByteSource decrypted = this.decrypt(encryptedBytes, cipherKey);
-		return CodecSupport.toString(decrypted.getBytes());
-	}
+        byte[] secretBytes = CodecSupport.toBytes(secretString);
+        ByteSource encryptedBytes = this.encrypt(secretBytes, cipherKey);
+        return new Base64(true).encodeToString(encryptedBytes.getBytes());
+    }
+
+    String decrypt(String base64EncodedEncryptedString, byte[] cipherKey) throws Exception {
+        byte[] encryptedEncodedBytes = CodecSupport.toBytes(base64EncodedEncryptedString);
+        byte[] encryptedBytes = new Base64(true).decode(encryptedEncodedBytes);
+
+        ByteSource decrypted = this.decrypt(encryptedBytes, cipherKey);
+        return CodecSupport.toString(decrypted.getBytes());
+    }
 
 }

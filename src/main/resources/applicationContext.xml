@@ -21,4 +21,20 @@
 
 	<bean id="panelFactory" class="org.coderdreams.webapp.PanelFactory"></bean>
 
+
+	<!--
+	This isn't the most secure way to store this, be careful!
+   -->
+	<bean id="cipherKeyBytes" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.apache.shiro.codec.Base64"/>
+		<property name="targetMethod" value="decode"/>
+		<property name="arguments">
+			<value>P7sWnbtUYuVxgVFvFlHpvQ==</value>
+		</property>
+	</bean>
+
+	<bean id="cipherService" class="org.coderdreams.shiro.CipherService">
+		<property name="cipherKeyBytes" ref="cipherKeyBytes"/>
+	</bean>
+
 </beans>

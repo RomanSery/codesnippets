@@ -13,8 +13,7 @@ public class CipherService {
 	private GCMCipherService gcmCipher = new GCMCipherService();
 	private CbcAeCipherService cbcAeCipher = new CbcAeCipherService();
 
-	//store this secret key somewhere secure!
-	private final byte[] cipherKeyBytes = Base64.decode("P7sWnbtUYuVxgVFvFlHpvQ==");
+	private byte[] cipherKeyBytes;
 
 	static {
 		if(Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
@@ -57,4 +56,11 @@ public class CipherService {
 		return Base64.encodeToString(keyBytes);
 	}
 
+	public byte[] getCipherKeyBytes() {
+		return cipherKeyBytes;
+	}
+
+	public void setCipherKeyBytes(byte[] cipherKeyBytes) {
+		this.cipherKeyBytes = cipherKeyBytes;
+	}
 }
