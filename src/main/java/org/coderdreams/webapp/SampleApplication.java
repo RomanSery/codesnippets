@@ -23,42 +23,44 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 public class SampleApplication extends WebApplication {
     private static final Logger log = LoggerFactory.getLogger(SampleApplication.class);
 
-    @Autowired private EmailService emailService;
-	private @Autowired PanelFactory panelFactory;
+    @Autowired
+    private EmailService emailService;
+    private @Autowired
+    PanelFactory panelFactory;
 
-	@Override
+    @Override
     public void init() {
-    	super.init();
-    	this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-    	SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        super.init();
+        this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 
-		getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+        getDebugSettings().setDevelopmentUtilitiesEnabled(true);
         getRequestLoggerSettings().setRequestLoggerEnabled(true);
         getRequestLoggerSettings().setRequestsWindowSize(5); //set # of requests to store
 
         getRequestCycleListeners().add(new IRequestCycleListener() {
-			@Override
-			public IRequestHandler onException(RequestCycle cycle, Exception ex) {
-				emailService.sendErrorEmail(cycle, ex, SampleApplication.this.getRequestLogger());
-				if(ex instanceof ListenerInvocationNotAllowedException || ex instanceof ComponentNotFoundException) {
-					//if this is an ajax request, just return an empty response to avoid sending user to error page
-					return EmptyAjaxRequestHandler.getInstance();
-				}
-				return null;
-			}
+            @Override
+            public IRequestHandler onException(RequestCycle cycle, Exception ex) {
+                emailService.sendErrorEmail(cycle, ex, SampleApplication.this.getRequestLogger());
+                if (ex instanceof ListenerInvocationNotAllowedException || ex instanceof ComponentNotFoundException) {
+                    //if this is an ajax request, just return an empty response to avoid sending user to error page
+                    return EmptyAjaxRequestHandler.getInstance();
+                }
+                return null;
+            }
         });
 
-		panelFactory.initFactory();
+        panelFactory.initFactory();
     }
 
-	@Override
-	public Class<? extends Page> getHomePage() {
-		return HomePage.class;
-	}
+    @Override
+    public Class<? extends Page> getHomePage() {
+        return HomePage.class;
+    }
 
-	@Override
-	protected IRequestLogger newRequestLogger() {
-		return new CustomRequestLogger();
-	}
+    @Override
+    protected IRequestLogger newRequestLogger() {
+        return new CustomRequestLogger();
+    }
 
 }

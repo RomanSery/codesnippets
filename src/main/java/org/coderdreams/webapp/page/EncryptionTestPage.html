@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+
+<h2>Test encryption/decryption</h2>
+<br />
+
+<div id="feedbackPanel"><span wicket:id="feedback"/></div>
+    
+<form wicket:id="earnLinkform">	
+		
+	<table border="1">
+	<tr>
+		<td>Encryption type</td>
+		<td>
+		<select wicket:id="encType" id="encType"></select>
+		</td>
+	</tr>
+		
+	<tr>
+		<td>private key (base64 encoded)</td>
+		<td><input type="text" wicket:id="privateKey" id="privateKey" /></td>
+	</tr>	   
+	
+	<tr>
+		<td>Plain text to encrypt</td>
+		<td><input type="text" wicket:id="plainText" id="plainText" size="80" /></td>
+	</tr>
+	
+	<tr>
+		<td>Encrypted text to decrypt</td>
+		<td><input type="text" wicket:id="encText" id="encText" size="80" /></td>
+	</tr>
+	
+    </table>
+    
+    <input type="submit" id="formsubmit" value="Submit" />
+            
+    <br />   
+    
+</form>
+
+</body>
+</html>
+
+
+
