@@ -2523,68 +2523,7 @@ public enum CountryCode
         return list;
     }
 
-    /**
-     * Used by nrms-integration project.
-     * Get a {@code CountryCode} that corresponds to the given ISO 3166-1
-     * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">alpha-2</a> or
-     * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">alpha-3</a> code.
-     *
-     * @param code
-     *         An ISO 3166-1 <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
-     *         >alpha-2</a> or <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
-     *         >alpha-3</a> code.
-     *         Or {@code "UNDEFINED"} (its case sensitivity depends on the value of
-     *         {@code caseSensitive}).
-     *         In addition, for backward compatibility, some 4-letter <a href=
-     *         "https://en.wikipedia.org/wiki/ISO_3166-3">ISO 3166-3</a> codes such
-     *         as {@code "ANHH"} are accepted.
-     *
-     * @param caseSensitive
-     *         If {@code true}, the given code should consist of upper-case letters only.
-     *         If {@code false}, this method internally canonicalizes the given code by
-     *         {@link String#toUpperCase()} and then performs search. For example,
-     *         {@code getByCode("jp", true)} returns {@code null}, but on the other hand,
-     *         {@code getByCode("jp", false)} returns {@link #JP CountryCode.JP}.
-     *
-     * @return
-     *         A {@code CountryCode} instance, or {@code null} if not found.
-     */
-    @SuppressWarnings("unused")
-    public static CountryCode getByCode(String code, boolean caseSensitive)
-    {
-        if (code == null)
-        {
-            return null;
-        }
-
-        switch (code.length())
-        {
-            case 2:
-                code = canonicalize(code, caseSensitive);
-                return getByAlpha2Code(code);
-
-            case 3:
-                code = canonicalize(code, caseSensitive);
-                return getByAlpha3Code(code);
-
-            case 4:
-                code = canonicalize(code, caseSensitive);
-                return getByAlpha4Code(code);
-
-            case 9:
-                code = canonicalize(code, caseSensitive);
-                if ("UNDEFINED".equals(code))
-                {
-                    return null;
-                }
-                // FALLTHROUGH
-
-            default:
-                return null;
-        }
-    }
-
-    /**
+   /**
      * Canonicalize the given country code.
      *
      * @param code

@@ -92,7 +92,7 @@ public final class Utils {
         return customer;
     }
 
-    private static String getVariable(String name) {
+    public static String getVariable(String name) {
         String result = System.getProperty(name);
         if (StringUtils.isBlank(result)) {
             result = System.getenv(name);
