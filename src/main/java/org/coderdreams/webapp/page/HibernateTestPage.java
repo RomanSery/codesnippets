@@ -19,6 +19,9 @@ public class HibernateTestPage extends BasePage implements IBasePage {
         details.setWeight(220.0d);
         details.setNickname("micky");
 
+        details.getFavoriteMovies().add("Terminator");
+        details.getFavoriteMovies().add("Star Trek");
+
         ComplexUser u = new ComplexUser();
         u.setEmail("test@test.com");
         u.setDisplayName("roman");
