@@ -6,7 +6,6 @@ import org.coderdreams.util.Utils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -17,11 +16,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class AppConfig {
 
+    private static String[] packagesToScan = new String[] {"org.coderdreams.dom"};
+
     @Primary
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource(Utils.getVariable("JDBC_CONNECTION_STRING"));
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
         return ds;
     }
 
@@ -30,7 +32,7 @@ public class AppConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+        sessionFactory.setPackagesToScan(packagesToScan);
         return sessionFactory;
     }
 
