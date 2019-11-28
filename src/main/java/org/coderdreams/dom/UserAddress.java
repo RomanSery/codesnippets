@@ -8,6 +8,7 @@ public class UserAddress implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Long id;
+    private boolean isPrimary;
     private String address1;
     private String address2;
     private String city;
@@ -86,5 +87,13 @@ public class UserAddress implements Serializable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
     }
 }

@@ -26,6 +26,11 @@ public class ComplexUserDetails implements Serializable {
         super();
     }
 
+    public UserAddress getPrimaryAddress() {
+        return getAddresses().stream().filter(UserAddress::isPrimary).findFirst().orElse(null);
+    }
+
+
     public Double getHeight() {
         return height;
     }
