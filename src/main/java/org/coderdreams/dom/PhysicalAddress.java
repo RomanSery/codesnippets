@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.coderdreams.enums.CountryCode;
 
-public class UserAddress implements Serializable {
+public class PhysicalAddress implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Long id;
@@ -77,7 +77,7 @@ public class UserAddress implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserAddress that = (UserAddress) o;
+        PhysicalAddress that = (PhysicalAddress) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
 

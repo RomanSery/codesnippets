@@ -17,7 +17,7 @@ public class ComplexUserDetails implements Serializable {
     private String mobilePhone;
     private String altEmail;
 
-    private List<UserAddress> addresses;
+    private List<PhysicalAddress> addresses;
     private List<String> favoriteMovies;
     private List<String> favoriteQuotes;
 
@@ -26,8 +26,8 @@ public class ComplexUserDetails implements Serializable {
         super();
     }
 
-    public UserAddress getPrimaryAddress() {
-        return getAddresses().stream().filter(UserAddress::isPrimary).findFirst().orElse(null);
+    public PhysicalAddress getPrimaryAddress() {
+        return getAddresses().stream().filter(PhysicalAddress::isPrimary).findFirst().orElse(null);
     }
 
 
@@ -55,14 +55,14 @@ public class ComplexUserDetails implements Serializable {
         this.nickname = nickname;
     }
 
-    public List<UserAddress> getAddresses() {
+    public List<PhysicalAddress> getAddresses() {
         if(addresses == null) {
             addresses = new ArrayList<>();
         }
         return addresses;
     }
 
-    public void setAddresses(List<UserAddress> addresses) {
+    public void setAddresses(List<PhysicalAddress> addresses) {
         this.addresses = addresses;
     }
 
