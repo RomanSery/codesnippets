@@ -19,7 +19,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <wicket.version>8.4.0</wicket.version>
-    <springframework.version>5.1.5.RELEASE</springframework.version>
+    <springframework.version>5.2.2.RELEASE</springframework.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <jcl-over-slf4j.version>1.7.24</jcl-over-slf4j.version>
@@ -87,6 +87,12 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql-connector-java.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+
 
     <!-- hibernate -->
     <dependency>
@@ -122,6 +128,13 @@
       <artifactId>spring-web</artifactId>
       <version>${springframework.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.2.3.RELEASE</version>
+    </dependency>
+
 
 
     <!-- jackson -->

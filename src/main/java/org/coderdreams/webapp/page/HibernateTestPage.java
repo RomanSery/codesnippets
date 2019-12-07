@@ -1,16 +1,19 @@
 package org.coderdreams.webapp.page;
 
+import java.util.Optional;
+
 import org.apache.wicket.markup.Markup;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.coderdreams.dao.ComplexUserRepository;
 import org.coderdreams.dom.ComplexUser;
 import org.coderdreams.dom.ComplexUserDetails;
 import org.coderdreams.dom.PhysicalAddress;
-import org.coderdreams.service.CrudService;
 import org.coderdreams.webapp.BasePage;
 
 public class HibernateTestPage extends BasePage implements IBasePage {
 
-    @SpringBean private CrudService crudService;
+    @SpringBean
+    private ComplexUserRepository complexUserRepository;
 
     public HibernateTestPage() {
         super();
@@ -40,11 +43,14 @@ public class HibernateTestPage extends BasePage implements IBasePage {
         u.setEmail("test@test.com");
         u.setDisplayName("roman");
         u.setUserDetails(details);
-        u = crudService.create(u);
+        u = complexUserRepository.save(u);
 
-        ComplexUser u2 = crudService.findById(ComplexUser.class, u.getId());
-        u2.getUserDetails().setMobilePhone("123-666-6666");
-        crudService.save(u2);
+
+        Optional<ComplexUser> u2 = complexUserRepository.findById(u.getId());
+        if(u2.isPresent()) {
+            u2.get().getUserDetails().setMobilePhone("123-666-6666");
+            complexUserRepository.save(u2.get());
+        }
 
         setMarkup(Markup.of(String.valueOf(u.getId())));
     }
