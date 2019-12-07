@@ -42,6 +42,10 @@ public class HibernateTestPage extends BasePage implements IBasePage {
         u.setUserDetails(details);
         u = crudService.create(u);
 
+        ComplexUser u2 = crudService.findById(ComplexUser.class, u.getId());
+        u2.getUserDetails().setMobilePhone("123-666-6666");
+        crudService.save(u2);
+
         setMarkup(Markup.of(String.valueOf(u.getId())));
     }
 
