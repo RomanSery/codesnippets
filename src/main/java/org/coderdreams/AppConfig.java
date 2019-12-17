@@ -2,6 +2,8 @@ package org.coderdreams;
 
 import javax.sql.DataSource;
 
+import org.coderdreams.dao.DaoPackage;
+import org.coderdreams.dom.BaseEntity;
 import org.coderdreams.util.Utils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,10 +19,10 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("org.coderdreams.dao")
+@EnableJpaRepositories(basePackageClasses = DaoPackage.class)
 public class AppConfig {
 
-    private static String[] packagesToScan = new String[] {"org.coderdreams.dom"};
+    private static String[] packagesToScan = new String[] {BaseEntity.class.getPackageName()};
 
     @Primary
     @Bean
