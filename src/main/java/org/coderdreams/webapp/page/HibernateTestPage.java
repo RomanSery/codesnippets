@@ -8,6 +8,7 @@ import org.coderdreams.dao.ComplexUserRepository;
 import org.coderdreams.dom.ComplexUser;
 import org.coderdreams.dom.ComplexUserDetails;
 import org.coderdreams.dom.PhysicalAddress;
+import org.coderdreams.enums.StatusType;
 import org.coderdreams.webapp.BasePage;
 
 public class HibernateTestPage extends BasePage implements IBasePage {
@@ -40,6 +41,7 @@ public class HibernateTestPage extends BasePage implements IBasePage {
         details.getAddresses().add(a2);
 
         ComplexUser u = new ComplexUser();
+        u.setStatus(StatusType.ACTIVE);
         u.setEmail("test@test.com");
         u.setDisplayName("roman");
         u.setUserDetails(details);

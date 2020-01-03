@@ -40,7 +40,9 @@ public class SearchService {
     }
 
     public List<ComplexUser> searchUsers(String term, AutocompleteFilters filters) {
-        return Collections.emptyList();
-        //return searchService.searchInstitutions(term, filters);
+        if(StringUtils.isBlank(term)) {
+            return Collections.emptyList();
+        }
+        return complexUserRepository.searchUsers(term, filters);
     }
 }

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.coderdreams.enums.StatusType;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -21,6 +22,10 @@ public class ComplexUser extends BaseEntity {
 	@Column(name = "user_details")
 	private ComplexUserDetails userDetails;
 
+	@Type(type="org.coderdreams.hibernate.StatusTypeEnumUserType")
+	@Column(name = "status_type")
+	private StatusType status;
+
 	public ComplexUser() {
 		super();
 	}
@@ -30,6 +35,9 @@ public class ComplexUser extends BaseEntity {
 
 	public String getDisplayName() { return displayName; }
 	public void setDisplayName(String displayName) { this.displayName = displayName; }
+
+	public StatusType getStatus() { return status; }
+	public void setStatus(StatusType status) { this.status = status; }
 
 	public ComplexUserDetails getUserDetails() {
 		if(userDetails == null) {
