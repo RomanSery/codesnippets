@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.coderdreams.enums.StatusType;
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "institution")
 public class Institution extends BaseEntity {
@@ -11,6 +14,10 @@ public class Institution extends BaseEntity {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+
+	@Type(type="org.coderdreams.hibernate.StatusTypeEnumUserType")
+	@Column(name = "status_type", nullable = false)
+	private StatusType status;
 
 	public Institution() {
 		super();
@@ -22,5 +29,13 @@ public class Institution extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public StatusType getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusType status) {
+		this.status = status;
 	}
 }

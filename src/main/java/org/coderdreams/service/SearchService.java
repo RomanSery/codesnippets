@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.coderdreams.dao.ComplexUserRepository;
 import org.coderdreams.dao.InstitutionRepository;
 import org.coderdreams.dom.BaseEntity;
@@ -32,8 +33,10 @@ public class SearchService {
     }
 
     public List<Institution> searchInstitutions(String term, AutocompleteFilters filters) {
-        return Collections.emptyList();
-        //return searchService.searchInstitutions(term, filters);
+        if(StringUtils.isBlank(term)) {
+            return Collections.emptyList();
+        }
+        return institutionRepository.searchInstitutions(term, filters);
     }
 
     public List<ComplexUser> searchUsers(String term, AutocompleteFilters filters) {
