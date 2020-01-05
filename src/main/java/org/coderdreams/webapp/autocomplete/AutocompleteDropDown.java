@@ -27,14 +27,12 @@ public class AutocompleteDropDown<T extends BaseEntity> extends DropDownChoice<T
     @SpringBean private SearchService searchService;
 
     private final SearchType searchType;
-    private final Class<T> classType;
 
     private static final PackageResourceReference JS_CODE = new PackageResourceReference(AutocompleteDropDown.class, "autocomplete_dropdown.js");
 
-    public AutocompleteDropDown(String id, Class<T> classType, IModel<T> model, SearchType searchType, IChoiceRenderer<T> renderer) {
+    public AutocompleteDropDown(String id, IModel<T> model, SearchType searchType, IChoiceRenderer<T> renderer) {
         super(id, model, Collections.emptyList(), renderer);
         this.searchType = searchType;
-        this.classType = classType;
     }
 
     @Override
@@ -85,7 +83,7 @@ public class AutocompleteDropDown<T extends BaseEntity> extends DropDownChoice<T
             return null;
         }
 
-        Optional<T> found = searchService.getById(classType, pkId);
+        Optional<T> found = searchService.getById(searchType, pkId);
         return found.isPresent() ? found.get() : null;
     }
 

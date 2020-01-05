@@ -11,6 +11,7 @@ import org.coderdreams.dom.BaseEntity;
 import org.coderdreams.dom.ComplexUser;
 import org.coderdreams.dom.Institution;
 import org.coderdreams.webapp.autocomplete.AutocompleteFilters;
+import org.coderdreams.webapp.autocomplete.SearchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ public class SearchService {
     private @Autowired ComplexUserRepository complexUserRepository;
     private @Autowired InstitutionRepository institutionRepository;
 
-    public <V extends BaseEntity> Optional<V> getById(Class<V> entityClass, Integer pk) {
+    public <V extends BaseEntity> Optional<V> getById(SearchType searchType, Integer pk) {
         if(pk == null || pk <= 0) {
             return null;
         }
 
-        if(entityClass == Institution.class) {
+        if(searchType == SearchType.INSTITUTIONS) {
             return (Optional<V>) institutionRepository.findById(pk);
-        } else if(entityClass == ComplexUser.class) {
+        } else if(searchType == SearchType.USERS) {
             return (Optional<V>) complexUserRepository.findById(pk);
         }
         return null;

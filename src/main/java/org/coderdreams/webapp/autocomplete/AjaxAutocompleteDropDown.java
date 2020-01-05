@@ -10,8 +10,8 @@ import org.coderdreams.dom.BaseEntity;
 public abstract class AjaxAutocompleteDropDown<T extends BaseEntity> extends AutocompleteDropDown<T> {
     private static final long serialVersionUID = 1L;
 
-    public AjaxAutocompleteDropDown(String id, Class<T> classType, IModel<T> model, SearchType searchType, IChoiceRenderer<T> renderer) {
-        super(id, classType, model, searchType, renderer);
+    public AjaxAutocompleteDropDown(String id, IModel<T> model, SearchType searchType, IChoiceRenderer<T> renderer) {
+        super(id, model, searchType, renderer);
         add(new OnChangeAjaxBehavior() {
             private static final long serialVersionUID = 1L;
             @Override

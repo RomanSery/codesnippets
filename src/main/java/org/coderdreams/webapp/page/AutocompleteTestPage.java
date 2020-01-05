@@ -39,10 +39,10 @@ public class AutocompleteTestPage extends BasePage implements IBasePage {
         selectedInstitutionLbl.setOutputMarkupId(true);
         testForm.addOrReplace(selectedInstitutionLbl);
 
-        testForm.addOrReplace(new AutocompleteDropDown<>("selectInstitution", Institution.class,
+        testForm.addOrReplace(new AutocompleteDropDown<>("selectInstitution",
                 objModel(this::getSelectedInstitution, this::setSelectedInstitution), SearchType.INSTITUTIONS, UIHelpers.getInstitutionChoiceRenderer()));
 
-        testForm.addOrReplace(new AutocompleteDropDown<>("selectPendingInstitution", Institution.class,
+        testForm.addOrReplace(new AutocompleteDropDown<>("selectPendingInstitution",
                 objModel(this::getSelectedPendingInstitution, this::setSelectedPendingInstitution), SearchType.INSTITUTIONS, UIHelpers.getInstitutionChoiceRenderer()) {
             @Override
             protected AutocompleteFilters getFilters() {
@@ -51,7 +51,7 @@ public class AutocompleteTestPage extends BasePage implements IBasePage {
         });
 
 
-        testForm.addOrReplace(new AjaxAutocompleteDropDown<>("selectInstitutionAjax", Institution.class,
+        testForm.addOrReplace(new AjaxAutocompleteDropDown<>("selectInstitutionAjax",
                 objModel(this::getSelectedInstitution, this::setSelectedInstitution), SearchType.INSTITUTIONS, UIHelpers.getInstitutionChoiceRenderer()) {
             @Override
             protected void onDropDownChanged(AjaxRequestTarget target) {
@@ -59,10 +59,10 @@ public class AutocompleteTestPage extends BasePage implements IBasePage {
             }
         });
 
-        testForm.addOrReplace(new AutocompleteDropDown<>("selectUser", ComplexUser.class,
+        testForm.addOrReplace(new AutocompleteDropDown<>("selectUser",
                 objModel(this::getSelectedUser, this::setSelectedUser), SearchType.USERS, UIHelpers.getComplexUserChoiceRenderer()));
 
-        testForm.addOrReplace(new AutocompleteDropDown<>("selectPendingUser", ComplexUser.class,
+        testForm.addOrReplace(new AutocompleteDropDown<>("selectPendingUser",
                 objModel(this::getSelectedPendingUser, this::setSelectedPendingUser), SearchType.USERS, UIHelpers.getComplexUserChoiceRenderer()) {
             @Override
             protected AutocompleteFilters getFilters() {
