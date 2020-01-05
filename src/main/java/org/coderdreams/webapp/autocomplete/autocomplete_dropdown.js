@@ -1,5 +1,4 @@
 function cd_initAutocompleteDropdown(inputId, suggestionsUrl) {
-
     $("#" + inputId).select2({
         placeholder: "Start typing...", allowClear: true, width: "100%",
         ajax: {

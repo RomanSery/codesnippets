@@ -1,25 +1,16 @@
 package org.coderdreams.webapp.autocomplete;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
 import org.coderdreams.dom.ComplexUser;
 import org.coderdreams.dom.Institution;
 import org.coderdreams.service.SearchService;
-import org.coderdreams.util.EntityUtil;
 import org.coderdreams.util.UIHelpers;
 import org.coderdreams.webapp.JsonRequestPage;
-
-import com.github.openjson.JSONException;
-import com.github.openjson.JSONObject;
-
-import static java.util.stream.Collectors.toList;
 
 @RequiresAuthentication
 public class DropdownSuggestionsPage extends JsonRequestPage {
@@ -34,31 +25,24 @@ public class DropdownSuggestionsPage extends JsonRequestPage {
 
     @Override
     protected String sendResponse(PageParameters pp) {
-        IRequestParameters requestParameters = getRequest().getRequestParameters();
-        StringValue termPP = requestParameters.getParameterValue("term");
-        StringValue suggestionTypePP = requestParameters.getParameterValue("searchType");
-        StringValue pagePP = requestParameters.getParameterValue("page");
-        if (suggestionTypePP == null || suggestionTypePP.isEmpty()) {
+        IRequestParameters reqParams = getRequest().getRequestParameters();
+        SearchType st = getSearchType(reqParams);
+        String term = getSearchTerm(reqParams);
+        int page = getPageNum(reqParams);
+        AutocompleteFilters filters = getFilters(reqParams);
+
+        if (st == null || !isTermOk(term)) {
             return getEmptyResponse();
         }
 
-        String term = termPP == null || termPP.isEmpty() ? null : termPP.toString();
-
-        SearchType st = SearchType.valueOf(suggestionTypePP.toString());
-        int page = pagePP == null || pagePP.isEmpty() ? 0 : pagePP.toInt();
-        AutocompleteFilters filters = getFilters(requestParameters);
-
-        if (!isTermOk(term)) {
-            return getEmptyResponse();
+        switch (st) {
+            case INSTITUTIONS:
+                return getInstitutions(term, page, filters);
+            case USERS:
+                return getUsers(term, page, filters);
+            default:
+                return getEmptyResponse();
         }
-
-        if (st == SearchType.INSTITUTIONS) {
-            return getInstitutions(term, page, filters);
-        } else if (st == SearchType.USERS) {
-            return getUsers(term, page, filters);
-        }
-
-        return getEmptyResponse();
     }
 
     private boolean isTermOk(String term) {
@@ -70,7 +54,7 @@ public class DropdownSuggestionsPage extends JsonRequestPage {
         if (fullList.isEmpty()) {
             return getEmptyResponse();
         }
-        return getStringResults(fullList, UIHelpers.getInstitutionChoiceRenderer(), page);
+        return getStringResults(fullList, UIHelpers.getInstitutionChoiceRenderer(), page, COUNT_PER_REQUEST);
     }
 
     private String getUsers(String term, int page, AutocompleteFilters filters) {
@@ -78,39 +62,7 @@ public class DropdownSuggestionsPage extends JsonRequestPage {
         if (fullList.isEmpty()) {
             return getEmptyResponse();
         }
-        return getStringResults(fullList, UIHelpers.getComplexUserChoiceRenderer(), page);
-    }
-
-    private <T> String getStringResults(List<T> fullList, IChoiceRenderer<T> cr, int page) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("count", fullList.size());
-            List<T> listWithPagination = fullList.stream().skip(COUNT_PER_REQUEST * (page - 1)).limit(COUNT_PER_REQUEST).collect(toList());
-            for (T obj : listWithPagination) {
-                JSONObject jObj = new JSONObject().put("id", cr.getIdValue(obj, 0)).put("text", cr.getDisplayValue(obj));
-                json.append("results", jObj);
-            }
-        } catch (JSONException e) {
-        }
-        return json.toString();
-    }
-
-    private AutocompleteFilters getFilters(IRequestParameters pp) {
-        StringValue filtersPP = pp.getParameterValue("filters");
-        if (filtersPP == null || filtersPP.isEmpty()) {
-            return new AutocompleteFilters();
-        }
-        return EntityUtil.jsonToObject(filtersPP.toString(), AutocompleteFilters.class);
-    }
-
-    private String getEmptyResponse() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("count", 0);
-            json.accumulate("results", Collections.emptyList());
-        } catch (JSONException e) {
-        }
-        return json.toString();
+        return getStringResults(fullList, UIHelpers.getComplexUserChoiceRenderer(), page, COUNT_PER_REQUEST);
     }
 
 }

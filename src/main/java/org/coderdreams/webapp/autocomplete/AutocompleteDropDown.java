@@ -55,9 +55,7 @@ public class AutocompleteDropDown<T extends BaseEntity> extends DropDownChoice<T
     @Override
     protected void onComponentTag(final ComponentTag tag) {
         super.onComponentTag(tag);
-        if(searchType != null) {
-            tag.put("search-type", searchType.toString());
-        }
+        tag.put("search-type", searchType.toString());
         tag.put("data-minimum-input-length", String.valueOf(getMinCharacters()));
         tag.put("search-filters", EntityUtil.objectToJson(getFilters()));
     }
