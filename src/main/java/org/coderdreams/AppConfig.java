@@ -1,5 +1,6 @@
 package org.coderdreams;
 
+import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.coderdreams.dao.DaoPackage;
@@ -40,6 +41,11 @@ public class AppConfig {
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactoryBean.setPackagesToScan(packagesToScan);
+
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.coderdreams.hibernate.CustomMysqlDialect");
+        entityManagerFactoryBean.setJpaProperties(properties);
+
         return entityManagerFactoryBean;
 
     }
