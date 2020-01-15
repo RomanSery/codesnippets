@@ -11,16 +11,6 @@ import org.coderdreams.util.Utils;
 import org.coderdreams.webapp.autocomplete.AutocompleteFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-//https://jonlabelle.com/snippets/view/sql/mysql-levenshtein-distance-algorithm
-
-/*SELECT * FROM coderdreams.institution where levenshtein_match_all('einstain', name, ' ', 3)
-order by levenshtein_match_all ('einstain', name, ' ', 3) asc
-
-SELECT * FROM coderdreams.institution_small where levenshtein_match('Chartar', name, ' ', 3)
-order by levenshtein_match ('Chartar', name, ' ', 3) asc limit 10
-
-;*/
-
 public class SearchInstitutionsRepositoryImpl implements SearchInstitutionsRepository {
     @Autowired private EntityManager entityManager;
 
