@@ -5,25 +5,56 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.lang3.StringUtils;
 import org.coderdreams.dom.Institution;
+import org.coderdreams.util.Utils;
 import org.coderdreams.webapp.autocomplete.AutocompleteFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SearchInstitutionsRepositoryImpl implements SearchInstitutionsRepository {
+//https://jonlabelle.com/snippets/view/sql/mysql-levenshtein-distance-algorithm
 
+/*SELECT * FROM coderdreams.institution where levenshtein_match_all('einstain', name, ' ', 3)
+order by levenshtein_match_all ('einstain', name, ' ', 3) asc
+
+SELECT * FROM coderdreams.institution_small where levenshtein_match('Chartar', name, ' ', 3)
+order by levenshtein_match ('Chartar', name, ' ', 3) asc limit 10
+
+;*/
+
+public class SearchInstitutionsRepositoryImpl implements SearchInstitutionsRepository {
     @Autowired private EntityManager entityManager;
 
     @Override
-    public List<Institution> searchInstitutions(String term, AutocompleteFilters filters) {
+    public List<Institution> searchInstitutions(String term, boolean useFuzzySearch, AutocompleteFilters filters) {
 
-        StringBuilder hql = new StringBuilder("from Institution u WHERE u.name like :term ");
+        StringBuilder hql = new StringBuilder("from Institution u WHERE ");
+
+        if(useFuzzySearch) {
+            hql.append(" levenshtein (:term, u.name, :maxDistance) <= :maxDistance ");
+        } else {
+            hql.append(" u.name like :term ");
+        }
+
         if(filters.getStatusType() != null) {
             hql.append(" and u.status = :status ");
         }
-        hql.append("order by u.name");
+
+        if(useFuzzySearch) {
+            hql.append(" order by levenshtein (:term, u.name, :maxDistance) asc");
+        } else if(!StringUtils.isBlank(term)) {
+            hql.append("order by u.name");
+        }
+
         TypedQuery<Institution> q = entityManager.createQuery(hql.toString(), Institution.class);
 
-        q.setParameter("term", '%' +term+ '%');
+        if(useFuzzySearch) {
+            q.setParameter("term", Utils.getApproximateMatchSearchTerm(term));
+            q.setParameter("maxDistance", filters.getMaxDistance());
+        } else {
+            q.setParameter("term", '%' +term+ '%');
+        }
+
+
         if(filters.getStatusType() != null) {
             q.setParameter("status", filters.getStatusType());
         }
@@ -37,4 +68,7 @@ public class SearchInstitutionsRepositoryImpl implements SearchInstitutionsRepos
 
         return q.getResultList();
     }
+
+
+
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -24,6 +25,8 @@ public final class Utils {
 
 	private static String customer = null;
 	private static Properties mergedEnumProperties = null;
+
+    private static final Pattern replaceNonAlphaNumericExceptSpace = Pattern.compile("[^a-zA-Z0-9\\s]");
 
     private Utils() {
         throw new IllegalStateException("Utility class");
@@ -140,5 +143,15 @@ public final class Utils {
         }
 
         return params;
+    }
+
+    public static String getApproximateMatchSearchTerm(String term) {
+        if(StringUtils.isBlank(term)) {
+            return term;
+        }
+
+        term = term.trim();
+        term = replaceNonAlphaNumericExceptSpace.matcher(term).replaceAll("");
+        return term;
     }
 }

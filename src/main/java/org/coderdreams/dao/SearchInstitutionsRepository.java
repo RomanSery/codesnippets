@@ -8,5 +8,5 @@ import org.coderdreams.webapp.autocomplete.AutocompleteFilters;
 
 public interface SearchInstitutionsRepository {
 
-    List<Institution> searchInstitutions(String term, AutocompleteFilters filters);
+    List<Institution> searchInstitutions(String term, boolean useFuzzySearch, AutocompleteFilters filters);
 }

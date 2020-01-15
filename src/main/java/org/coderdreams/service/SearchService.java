@@ -37,7 +37,11 @@ public class SearchService {
         if(StringUtils.isBlank(term)) {
             return Collections.emptyList();
         }
-        return institutionRepository.searchInstitutions(term, filters);
+        List<Institution> results = institutionRepository.searchInstitutions(term, false, filters);
+        if(results.isEmpty()) {
+            results = institutionRepository.searchInstitutions(term, true, filters);
+        }
+        return results;
     }
 
     public List<ComplexUser> searchUsers(String term, AutocompleteFilters filters) {

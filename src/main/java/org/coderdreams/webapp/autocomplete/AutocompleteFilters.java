@@ -9,6 +9,7 @@ public class AutocompleteFilters implements Serializable {
 
     private int skip = 0;
     private int maxResults = 30;
+    private int maxDistance = 3;
     private StatusType statusType;
 
     public AutocompleteFilters() {
@@ -39,6 +40,12 @@ public class AutocompleteFilters implements Serializable {
     }
     public AutocompleteFilters setStatusType(StatusType statusType) {
         this.statusType = statusType;
+        return this;
+    }
+
+    public int getMaxDistance() { return maxDistance; }
+    public AutocompleteFilters setMaxDistance(int maxDistance) {
+        this.maxDistance = maxDistance;
         return this;
     }
 }
