@@ -10,10 +10,10 @@ import org.coderdreams.dom.ComplexUser;
 import org.coderdreams.dom.Institution;
 import org.coderdreams.service.SearchService;
 import org.coderdreams.util.UIHelpers;
-import org.coderdreams.webapp.JsonRequestPage;
+import org.coderdreams.webapp.JsonResponsePage;
 
 @RequiresAuthentication
-public class DropdownSuggestionsPage extends JsonRequestPage {
+public class DropdownSuggestionsPage extends JsonResponsePage {
     private static final long serialVersionUID = 1L;
 
     private static final int COUNT_PER_REQUEST = 15;

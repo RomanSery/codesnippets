@@ -20,12 +20,12 @@ import com.github.openjson.JSONObject;
 import static java.util.stream.Collectors.toList;
 
 
-public abstract class JsonRequestPage extends WebPage {
+public abstract class JsonResponsePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 	
 	protected abstract String sendResponse(final PageParameters pp);
 
-	public JsonRequestPage(final PageParameters pp) {
+	public JsonResponsePage(final PageParameters pp) {
 		super(pp);
 		getRequestCycle().scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json", "UTF-8", sendResponse(pp)));				
 	}
