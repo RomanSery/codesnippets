@@ -27,7 +27,7 @@ public class DropdownSuggestionsPage extends JsonResponsePage {
     protected String sendResponse(PageParameters pp) {
         IRequestParameters reqParams = getRequest().getRequestParameters();
         SearchType st = getSearchType(reqParams);
-        String term = getSearchTerm(reqParams);
+        String term = getRequestParam(reqParams, "term");
         int page = getPageNum(reqParams);
         AutocompleteFilters filters = getFilters(reqParams);
 

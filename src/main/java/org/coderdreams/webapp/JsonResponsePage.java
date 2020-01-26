@@ -45,21 +45,25 @@ public abstract class JsonResponsePage extends WebPage {
 		return json.toString();
 	}
 
+	protected String sendResponse(String statusCode, String msg) {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("status", statusCode);
+			json.put("msg", msg);
+		} catch (JSONException e) { }
+		return json.toString();
+	}
+
 
 	//helper methods
 	protected int getPageNum(IRequestParameters reqParams) {
-		StringValue pagePP = reqParams.getParameterValue("page");
-		return pagePP == null || pagePP.isEmpty() ? 0 : pagePP.toInt();
+		String pageNum = getRequestParam(reqParams, "page");
+		return pageNum == null ? 0 : Integer.parseInt(pageNum);
 	}
 
 	protected SearchType getSearchType(IRequestParameters reqParams) {
-		StringValue suggestionTypePP = reqParams.getParameterValue("searchType");
-		return (suggestionTypePP == null || suggestionTypePP.isEmpty()) ? null : SearchType.valueOf(suggestionTypePP.toString());
-	}
-
-	protected String getSearchTerm(IRequestParameters reqParams) {
-		StringValue termPP = reqParams.getParameterValue("term");
-		return termPP == null || termPP.isEmpty() ? null : termPP.toString();
+		String suggestionType = getRequestParam(reqParams, "searchType");
+		return suggestionType == null ? null : SearchType.valueOf(suggestionType);
 	}
 
 	protected <T> String getStringResults(List<T> fullList, IChoiceRenderer<T> cr, int page, int countPerRequest) {
@@ -82,5 +86,11 @@ public abstract class JsonResponsePage extends WebPage {
 			return new AutocompleteFilters();
 		}
 		return EntityUtil.jsonToObject(filtersPP.toString(), AutocompleteFilters.class);
+	}
+
+
+	protected String getRequestParam(IRequestParameters reqParams, String name) {
+		StringValue paramPP = reqParams.getParameterValue(name);
+		return paramPP == null || paramPP.isEmpty() ? null : paramPP.toString();
 	}
 }
