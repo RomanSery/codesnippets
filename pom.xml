@@ -6,7 +6,7 @@
 
   <groupId>org.coderdreams</groupId>
   <artifactId>code-snippets</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>code-snippets</name>
   <packaging>war</packaging>
   <description>Sample code for demonstrating Wicket and Java techniques</description>
@@ -79,6 +79,16 @@
     <dependency>
       <groupId>org.apache.wicket</groupId>
       <artifactId>wicket-devutils</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wicketstuff</groupId>
+      <artifactId>wicketstuff-restannotations</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wicketstuff</groupId>
+      <artifactId>wicketstuff-restannotations-json</artifactId>
       <version>${wicket.version}</version>
     </dependency>
 
@@ -226,6 +236,29 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.0.0</version>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <generateGitPropertiesFile>true</generateGitPropertiesFile>
+          <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+          <commitIdGenerationMode>full</commitIdGenerationMode>
+          <format>properties</format>
+        </configuration>
+      </plugin>
+    </plugins>
 
 
     <resources>

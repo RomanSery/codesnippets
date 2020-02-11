@@ -4,11 +4,14 @@ import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.ComponentNotFoundException;
 import org.apache.wicket.core.request.handler.EmptyAjaxRequestHandler;
 import org.apache.wicket.core.request.handler.ListenerInvocationNotAllowedException;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.IRequestLogger;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.CustomRequestLogger;
@@ -50,6 +53,16 @@ public class SampleApplication extends WebApplication {
                     return EmptyAjaxRequestHandler.getInstance();
                 }
                 return null;
+            }
+        });
+
+        this.mountResource("/releaseinfo", new ResourceReference("/releaseinfo") {
+            private static final long serialVersionUID = 1L;
+            VersionDetailsEndpoints versionDetailsEndpoints = new VersionDetailsEndpoints();
+            @Override
+            public IResource getResource() {
+                Injector.get().inject(versionDetailsEndpoints);
+                return versionDetailsEndpoints;
             }
         });
 
