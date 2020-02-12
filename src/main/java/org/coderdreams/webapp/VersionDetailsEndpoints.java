@@ -14,21 +14,8 @@ public class VersionDetailsEndpoints extends AbstractRestResource<JsonWebSerialD
     }
 
     @MethodMapping(value = "/")
-    public VersionInfo details() {
+    public String details() {
         getCurrentWebResponse().addHeader("Access-Control-Allow-Origin", "*");
-        return new VersionInfo(ApplicationDetailsService.getBranch(), ApplicationDetailsService.getVersion());
-    }
-
-    private static final class VersionInfo {
-        private final String branch;
-        private final String version;
-
-        private VersionInfo(String branch, String version) {
-            this.branch = branch;
-            this.version = version;
-        }
-
-        public String getBranch() { return branch; }
-        public String getVersion() { return version; }
+        return ApplicationDetailsService.getBranch();
     }
 }
