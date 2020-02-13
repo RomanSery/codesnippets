@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>CoderDreams release info</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            crossorigin="anonymous"
+    ></script>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            crossorigin="anonymous"
+    />
+
+    <script>
+        let urlMap = {};
+        urlMap["ABC Corp"] = ["test.abc.com", "stage.abc.com", "abc.com"];
+        urlMap["Oracle"] = [
+            "test.oracle-coderdreams.com",
+            "stage.oracle-coderdreams.com",
+            "oracle-coderdreams.com"
+        ];
+        urlMap["Microsoft"] = [
+            "test.ms.com",
+            "stage.ms.com",
+            "ms-coderdreams.com"
+        ];
+
+        const clients = Object.keys(urlMap);
+
+        $(document).ready(function() {
+            clients.forEach(function(client) {
+                const clientId = client.replace(/ /g, "_");
+
+                $("#releasesTable").append(
+                    '<tr id="' +
+                    clientId +
+                    '"><td>' +
+                    client +
+                    "</td><td></td><td></td><td></td><td></td></tr>"
+                );
+
+                urlMap[client].forEach(function(url, index) {
+                    if (url.length == 0) {
+                        return;
+                    }
+                    const tdNum = index + 2;
+                    const fullUrl = "http://" + url + "/releaseinfo";
+                    getReleaseBranch(fullUrl)
+                        .then(response => {
+                            $("#" + clientId + " td:nth-child(" + tdNum + ")").html(
+                                response
+                            );
+                        })
+                        .catch(e => {
+                            $("#" + clientId + " td:nth-child(" + tdNum + ")").html("ERR");
+                            $("#" + clientId + " td:nth-child(" + tdNum + ")").addClass(
+                                "text-danger"
+                            );
+                        });
+                });
+            });
+        });
+
+        async function getReleaseBranch(url) {
+            let response = await fetch(url, { cache: "no-store" });
+            return await response.json();
+        }
+    </script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 col-lg-10">
+            <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+            >
+                <h1 class="h2">CoderDreams release info</h1>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-sm" id="releasesTable">
+                    <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>TEST</th>
+                        <th>STG</th>
+                        <th>PROD</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
