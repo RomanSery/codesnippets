@@ -27,16 +27,12 @@ public class PdfService {
 			document.newPage();
 
 			Paragraph p1 = new Paragraph();
-
 			ElementList list = XMLWorkerHelper.parseToElementList(xhtml, null);
 			p1.addAll(list);
 			document.add(p1);
 
 			document.close();
-
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
 
 		}
 	}
@@ -46,7 +42,4 @@ public class PdfService {
 		d.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
 		return d.html();
 	}
-
-
-
 }

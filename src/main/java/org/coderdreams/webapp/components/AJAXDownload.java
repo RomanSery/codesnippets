@@ -27,5 +27,5 @@ public abstract class AJAXDownload extends AbstractAjaxBehavior {
 	}
 
 	protected String getFileName() { return null; }
-	protected abstract IResourceStream getResourceStream();
+	protected IResourceStream getResourceStream() { return null; }
 }
