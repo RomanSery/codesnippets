@@ -61,4 +61,8 @@ public class UserService {
         //dummy method
         return new User(1, "Wicket", "Wicked", true);
     }
+
+    public Integer getCurrUserId() {
+        return 1;
+    }
 }
