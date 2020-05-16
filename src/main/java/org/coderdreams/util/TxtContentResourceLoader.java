@@ -14,12 +14,12 @@ import org.apache.wicket.util.value.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FieldPropsResourceLoader implements IStringResourceLoader {
-	private static final Logger log = LoggerFactory.getLogger(FieldPropsResourceLoader.class);
+public class TxtContentResourceLoader implements IStringResourceLoader {
+	private static final Logger log = LoggerFactory.getLogger(TxtContentResourceLoader.class);
 	
 	private Properties fileProps = null;
 
-	public FieldPropsResourceLoader() {
+	public TxtContentResourceLoader() {
 		super();
 		initProperties();
 	}
@@ -60,7 +60,7 @@ public class FieldPropsResourceLoader implements IStringResourceLoader {
 	
 	private java.util.Properties getProperties(String path) {
 
-        try (InputStream in = FieldPropsResourceLoader.class.getClassLoader().getResourceAsStream(path)) {
+        try (InputStream in = TxtContentResourceLoader.class.getClassLoader().getResourceAsStream(path)) {
             UtfPropertiesFilePropertiesLoader loader = new UtfPropertiesFilePropertiesLoader(null, StandardCharsets.UTF_8.name());
             if(in == null) {
                 return null;
