@@ -15,6 +15,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.CustomRequestLogger;
+import org.coderdreams.util.FieldPropsResourceLoader;
 import org.coderdreams.webapp.autocomplete.DropdownSuggestionsPage;
 import org.coderdreams.webapp.page.HomePage;
 import org.slf4j.Logger;
@@ -37,6 +38,8 @@ public class SampleApplication extends WebApplication {
         super.init();
         this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+
+        getResourceSettings().getStringResourceLoaders().add(new FieldPropsResourceLoader());
 
         getDebugSettings().setDevelopmentUtilitiesEnabled(true);
         getRequestLoggerSettings().setRequestLoggerEnabled(true);

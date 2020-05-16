@@ -14,4 +14,8 @@ public abstract class BasePage extends WebPage {
         }
         return super.getVariation();
     }
+
+    protected String getLbl(String propertyId) {
+        return getString(propertyId + ".lbl");
+    }
 }
