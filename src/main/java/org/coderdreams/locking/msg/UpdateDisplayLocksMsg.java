@@ -1,4 +1,4 @@
-package org.coderdreams.locking;
+package org.coderdreams.locking.msg;
 
 import java.io.Serializable;
 

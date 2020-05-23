@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "auth_user_lock")
+@Table(name = "user_lock")
 public class UserLock extends BaseEntity  {
 	private static final long serialVersionUID=1L;
 

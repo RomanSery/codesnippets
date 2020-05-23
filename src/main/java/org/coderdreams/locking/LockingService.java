@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.coderdreams.dao.UserLockRepository;
 import org.coderdreams.dom.UserLock;
+import org.coderdreams.locking.msg.LockPublishMsg;
 import org.coderdreams.service.UserService;
 import org.redisson.Redisson;
 import org.redisson.api.RTopic;
@@ -48,9 +49,7 @@ public class LockingService {
                                           MessageListener<LockPublishMsg> listener) {
 
 
-        boolean isPageLocked = false;
-
-        boolean isCollaborativeMode = false;
+        boolean isRecordLocked = false;
         boolean isInitalViewer = false;
         int listenerId = 0;
         int userLockId = 0;
@@ -60,11 +59,10 @@ public class LockingService {
         listenerId = lockResult.getListenerId();
         userLockId = lockResult.getUserLockId();
         if(!isInitalViewer) {
-            isCollaborativeMode = true;
-            isPageLocked = true;
+            isRecordLocked = true;
         }
 
-        return new RecordAccess(isCollaborativeMode, isInitalViewer, isPageLocked, listenerId, userLockId);
+        return new RecordAccess(isRecordLocked, isInitalViewer, listenerId, userLockId);
     }
 
     

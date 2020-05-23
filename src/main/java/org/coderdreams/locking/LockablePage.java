@@ -12,6 +12,9 @@ import org.apache.wicket.protocol.ws.api.registry.IWebSocketConnectionRegistry;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.coderdreams.locking.msg.LockPublishMsg;
+import org.coderdreams.locking.msg.UpdateDisplayLocksMsg;
+import org.coderdreams.locking.msg.WebSocketMsg;
 
 public interface LockablePage {
 
@@ -21,11 +24,10 @@ public interface LockablePage {
     String applicationName();
     String sessionId();
     IKey key();
-    boolean isShowedCollabortiveNotification();
-    void setShowedCollabortiveNotification(boolean showedCollabortiveNotification);
+    boolean showedNotification();
+    void setShowedNotification(boolean showedNotification);
     boolean isMultipleViewers();
     void setMultipleViewers(boolean multipleViewers);
-    String getReloadUrl();
 
     default void renderHeadLockingScripts(IHeaderResponse response) {
 
@@ -54,15 +56,15 @@ public interface LockablePage {
 
         if(connection != null && connection.isOpen()) {
 
-            boolean isCollab = msg.getNumLocks() > 1;
+            boolean isLocked = msg.getNumLocks() > 1;
             boolean origVal = isMultipleViewers();
-            boolean isChanged = isMultipleViewers() != isCollab;
+            boolean isChanged = isMultipleViewers() != isLocked;
             if(isChanged) {
-                setMultipleViewers(isCollab);
-                if(getRecordAccess().isInitalViewer()) {
-                    if(!isShowedCollabortiveNotification()) {
+                setMultipleViewers(isLocked);
+                if(getRecordAccess().isInitialViewer()) {
+                    if(!showedNotification()) {
                         connection.sendMessage(new WebSocketMsg("Collaborative Editing", "Another user has started viewing this record.  Finish and save your changes and leave the page to allow other users to make changes."));
-                        setShowedCollabortiveNotification(true);
+                        setShowedNotification(true);
                     }
                 }
 

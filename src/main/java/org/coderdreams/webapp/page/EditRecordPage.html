@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+
+	<script type="text/javascript">
+
+		function reopenWebsocketConnection() {
+			setTimeout(function() {
+				Wicket.WebSocket.createDefaultConnection();
+			}, 1000);
+		}
+		jQuery(document).ready(function() {
+
+			Wicket.Event.subscribe("/websocket/error", reopenWebsocketConnection);
+
+		});
+	</script>
+
+</head>
+<body>
+
+<div wicket:id="displayLocksPanel"></div>
+
+</body>
+</html>

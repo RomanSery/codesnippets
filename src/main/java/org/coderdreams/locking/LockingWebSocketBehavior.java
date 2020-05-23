@@ -6,6 +6,8 @@ import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.message.ClosedMessage;
 import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 import org.apache.wicket.protocol.ws.api.message.IWebSocketPushMessage;
+import org.coderdreams.locking.msg.UpdateDisplayLocksMsg;
+import org.coderdreams.locking.msg.WebSocketMsg;
 
 
 public abstract class LockingWebSocketBehavior extends WebSocketBehavior {

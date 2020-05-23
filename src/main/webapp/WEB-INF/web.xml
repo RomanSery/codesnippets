@@ -21,7 +21,7 @@
 
 	<filter>
 		<filter-name>SampleApplication</filter-name>
-		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+		<filter-class>org.apache.wicket.protocol.ws.javax.JavaxWebSocketFilter</filter-class>
 		<init-param>
 		  <param-name>applicationClassName</param-name>
 		  <param-value>org.coderdreams.webapp.SampleApplication</param-value>
