@@ -15,6 +15,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.coderdreams.locking.msg.LockPublishMsg;
 import org.coderdreams.locking.msg.UpdateDisplayLocksMsg;
 import org.coderdreams.locking.msg.WebSocketMsg;
+import org.coderdreams.util.Utils;
 
 public interface LockablePage {
 
@@ -38,8 +39,9 @@ public interface LockablePage {
                 .add("ulId", getRecordAccess().getUserLockId())
                 .add("lid", getRecordAccess().getListenerId()));
 
-
-        response.render(JavaScriptHeaderItem.forScript("remove_lock_page = '"+ RequestCycle.get().getUrlRenderer().renderFullUrl(url) +"'; ", "remove_lock_page"));
+        String baseUrl = Utils.getVariable("BASE_URL");
+        String urlStr = baseUrl + url;
+        response.render(JavaScriptHeaderItem.forScript("remove_lock_page = '"+ urlStr +"'; ", "remove_lock_page"));
 
         response.render(OnDomReadyHeaderItem.forScript("window.onbeforeunload = function (e) { " +
                 " Wicket.WebSocket.close(); " +

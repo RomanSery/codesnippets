@@ -5,8 +5,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Edit record</title>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="css/jquery.gritter.css">
+	<script src="js/jquery.gritter.min.js"></script>
 
 	<script type="text/javascript">
 		function reopenWebsocketConnection() {
@@ -14,6 +17,17 @@
 				Wicket.WebSocket.createDefaultConnection();
 			}, 1000);
 		}
+
+		function showGritterFeedback(myTitle, myText) {
+			jQuery.gritter.add({
+				title: myTitle,
+				text: myText,
+				sticky: true,
+				time: '',
+				class_name: 'gritter-info'
+			});
+		}
+
 		jQuery(document).ready(function() {
 
 			Wicket.Event.subscribe("/websocket/error", reopenWebsocketConnection);

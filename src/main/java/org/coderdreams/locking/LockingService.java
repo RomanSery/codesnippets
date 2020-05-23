@@ -41,19 +41,19 @@ public class LockingService {
 
 
         boolean isRecordLocked = false;
-        boolean isInitalViewer = false;
+        boolean isInitialViewer = false;
         int listenerId = 0;
         int userLockId = 0;
 
         LockResult lockResult = initUserLock(lockObjId, currUserId, ipAddress, clientInfo, listener);
-        isInitalViewer = lockResult.isInitalViewer();
+        isInitialViewer = lockResult.isInitalViewer();
         listenerId = lockResult.getListenerId();
         userLockId = lockResult.getUserLockId();
-        if(!isInitalViewer) {
+        if(!isInitialViewer) {
             isRecordLocked = true;
         }
 
-        return new RecordAccess(isRecordLocked, isInitalViewer, listenerId, userLockId);
+        return new RecordAccess(isRecordLocked, isInitialViewer, listenerId, userLockId);
     }
 
     
@@ -77,7 +77,7 @@ public class LockingService {
         }
 
         long numLocks = getNumLocks(recordId);
-        boolean isInitialViewer = numLocks < 1;
+        boolean isInitialViewer = numLocks < 2;
         return new LockResult(userLockId, isInitialViewer, listenerId);
     }
 

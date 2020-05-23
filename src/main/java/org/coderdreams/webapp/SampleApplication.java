@@ -14,6 +14,7 @@ import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.RequestCycleSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.coderdreams.dao.UserLockRepository;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.CustomRequestLogger;
 import org.coderdreams.util.TxtContentResourceLoader;
@@ -29,10 +30,9 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 public class SampleApplication extends WebApplication {
     private static final Logger log = LoggerFactory.getLogger(SampleApplication.class);
 
-    @Autowired
-    private EmailService emailService;
-    private @Autowired
-    PanelFactory panelFactory;
+    @Autowired private EmailService emailService;
+    @Autowired private UserLockRepository userLockRepository;
+    private @Autowired PanelFactory panelFactory;
 
     @Override
     public void init() {
@@ -46,6 +46,8 @@ public class SampleApplication extends WebApplication {
         getRequestLoggerSettings().setRequestLoggerEnabled(true);
         getRequestLoggerSettings().setRequestsWindowSize(5); //set # of requests to store
         getRequestCycleSettings().setRenderStrategy(RequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
+
+        userLockRepository.deleteAll();
 
         this.mountPage("/searchsuggestions", DropdownSuggestionsPage.class);
 

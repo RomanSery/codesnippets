@@ -4,9 +4,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.coderdreams.webapp.JsonResponsePage;
 
-import com.github.openjson.JSONException;
-import com.github.openjson.JSONObject;
-
 public class RemoveLockPage extends JsonResponsePage {
     private static final long serialVersionUID = 1L;
 
@@ -25,17 +22,7 @@ public class RemoveLockPage extends JsonResponsePage {
         int userId = params.get("userId").isEmpty() ? 0 : params.get("userId").toInt();
 
         lockingService.removeMyLock(userLockId, recordId, userId, listenerId);
-        return getSuccessResponse();
-    }
-
-
-    private String getSuccessResponse() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("success", 1);
-        } catch (JSONException e) {
-        }
-        return json.toString();
+        return sendResponse("OK", "OK");
     }
 
 }

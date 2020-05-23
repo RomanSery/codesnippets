@@ -1,7 +1,7 @@
 package org.coderdreams.webapp.page;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.event.IEvent;
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -41,7 +41,9 @@ public class EditRecordPage extends WebPage implements MessageListener<LockPubli
 	public EditRecordPage(final PageParameters params) {
 		super(params);
         applicationName = Application.get().getName();
+        Session.get().bind();
         sessionId = this.getSession().getId();
+        System.out.println(sessionId);
         key = new PageIdKey(this.getPageId());
 
         currUserId = params.get("userId").isEmpty() ? 0 : params.get("userId").toInt();
@@ -70,17 +72,6 @@ public class EditRecordPage extends WebPage implements MessageListener<LockPubli
 		add(new Label("lockMsg", access.isRecordLocked() ? "Record Locked" : "Record Un-locked"));
 	}
 
-	@Override
-	public void onEvent(IEvent<?> event) {
-		super.onEvent(event);
-
-//		if (event.getPayload() instanceof GritterEvent) {
-//			GritterEvent ev = ((GritterEvent)event.getPayload());
-//			showGritterFeedback(ev.getAjaxRequestTarget(), ev.getTitle(), ev.getMsg());
-//			return;
-//		}
-
-	}	
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
