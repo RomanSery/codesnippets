@@ -2,8 +2,6 @@ package org.coderdreams.locking;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
-import org.coderdreams.service.UserService;
 import org.coderdreams.webapp.JsonResponsePage;
 
 import com.github.openjson.JSONException;
@@ -12,32 +10,21 @@ import com.github.openjson.JSONObject;
 public class RemoveLockPage extends JsonResponsePage {
     private static final long serialVersionUID = 1L;
 
-    @SpringBean
-    private UserService userService;
-    @SpringBean
-    private LockingService lockingService;
+    @SpringBean private LockingService lockingService;
 
     public RemoveLockPage(final PageParameters pp) {
         super(pp);
     }
 
     @Override
-    protected String sendResponse(PageParameters pp) {
+    protected String sendResponse(PageParameters params) {
 
-        StringValue objIdPP = pp.get("objid");
-        StringValue listenerIdPP = pp.get("lid");
-        StringValue userLockIdPP = pp.get("ulId");
-        if (objIdPP == null || objIdPP.isEmpty() || userLockIdPP == null || userLockIdPP.isEmpty()) {
-            return getSuccessResponse();
-        }
+        int recordId = params.get("recordId").isEmpty() ? 0 : params.get("recordId").toInt();
+        int listenerId = params.get("lid").isEmpty() ? 0 : params.get("lid").toInt();
+        int userLockId = params.get("ulId").isEmpty() ? 0 : params.get("ulId").toInt();
+        int userId = params.get("userId").isEmpty() ? 0 : params.get("userId").toInt();
 
-        int objId = objIdPP.toInt();
-        int listenerId = listenerIdPP.toInt();
-        int userLockId = userLockIdPP.toInt();
-
-
-        lockingService.removeMyLock(userLockId, objId, userService.getCurrUserId(), listenerId);
-
+        lockingService.removeMyLock(userLockId, recordId, userId, listenerId);
         return getSuccessResponse();
     }
 

@@ -19,7 +19,8 @@ import org.coderdreams.locking.msg.WebSocketMsg;
 public interface LockablePage {
 
     RecordAccess getRecordAccess();
-    int getLockObjId();
+    int getRecordId();
+    int getUserId();
 
     String applicationName();
     String sessionId();
@@ -32,16 +33,18 @@ public interface LockablePage {
     default void renderHeadLockingScripts(IHeaderResponse response) {
 
         Url url = RequestCycle.get().mapUrlFor(RemoveLockPage.class, new PageParameters()
-                .add("objid", getLockObjId())
+                .add("recordId", getRecordId())
+                .add("userId", getUserId())
                 .add("ulId", getRecordAccess().getUserLockId())
                 .add("lid", getRecordAccess().getListenerId()));
 
-        response.render(JavaScriptHeaderItem.forScript("CD.remove_lock_page = '"+ url +"'; ", "remove_lock_page"));
+
+        response.render(JavaScriptHeaderItem.forScript("remove_lock_page = '"+ RequestCycle.get().getUrlRenderer().renderFullUrl(url) +"'; ", "remove_lock_page"));
 
         response.render(OnDomReadyHeaderItem.forScript("window.onbeforeunload = function (e) { " +
                 " Wicket.WebSocket.close(); " +
                 " var requestXhr = new XMLHttpRequest(); " +
-                "requestXhr.open('GET', CD.remove_lock_page, false); " +
+                "requestXhr.open('GET', remove_lock_page, false); " +
                 "requestXhr.send(null); " +
                 " }"));
     }

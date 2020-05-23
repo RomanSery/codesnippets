@@ -12,6 +12,7 @@ import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.settings.RequestCycleSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.CustomRequestLogger;
@@ -44,6 +45,7 @@ public class SampleApplication extends WebApplication {
         getDebugSettings().setDevelopmentUtilitiesEnabled(true);
         getRequestLoggerSettings().setRequestLoggerEnabled(true);
         getRequestLoggerSettings().setRequestsWindowSize(5); //set # of requests to store
+        getRequestCycleSettings().setRenderStrategy(RequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
         this.mountPage("/searchsuggestions", DropdownSuggestionsPage.class);
 
