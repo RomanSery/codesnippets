@@ -91,6 +91,11 @@
       <artifactId>wicketstuff-restannotations-json</artifactId>
       <version>${wicket.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-native-websocket-javax</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
@@ -211,6 +216,12 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-ext-jdk15on</artifactId>
       <version>1.64</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson</artifactId>
+      <version>3.11.0</version>
     </dependency>
 
     <dependency>
