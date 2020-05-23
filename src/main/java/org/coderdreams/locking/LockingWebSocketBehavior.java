@@ -32,7 +32,7 @@ public abstract class LockingWebSocketBehavior extends WebSocketBehavior {
         super.onPush(handler, message);
         if(message instanceof WebSocketMsg) {
             WebSocketMsg m = (WebSocketMsg) message;
-            showGritterFeedback(handler, m.getTitle(), m.getMsg());
+            showMsg(handler, m.getTitle(), m.getMsg());
             updateDisplayLocksPanel(handler);
         } else if(message instanceof UpdateDisplayLocksMsg) {
             updateDisplayLocksPanel(handler);
@@ -52,7 +52,7 @@ public abstract class LockingWebSocketBehavior extends WebSocketBehavior {
     }
 
 
-    private void showGritterFeedback(WebSocketRequestHandler handler, String title, String messageText) {
-        handler.appendJavaScript("showGritterFeedback('" + title + "', '" + StringEscapeUtils.escapeHtml4(messageText).replace("'", "\\'") +"');");
+    private void showMsg(WebSocketRequestHandler handler, String title, String messageText) {
+        handler.appendJavaScript("showMsg('" + title + "', '" + StringEscapeUtils.escapeHtml4(messageText).replace("'", "\\'") +"');");
     }
 }

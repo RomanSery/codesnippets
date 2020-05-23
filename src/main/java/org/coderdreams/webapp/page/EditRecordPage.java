@@ -43,7 +43,6 @@ public class EditRecordPage extends WebPage implements MessageListener<LockPubli
         applicationName = Application.get().getName();
         Session.get().bind();
         sessionId = this.getSession().getId();
-        System.out.println(sessionId);
         key = new PageIdKey(this.getPageId());
 
         currUserId = params.get("userId").isEmpty() ? 0 : params.get("userId").toInt();
