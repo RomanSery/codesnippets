@@ -16,16 +16,14 @@ import org.coderdreams.locking.LockablePage;
 import org.coderdreams.locking.LockingService;
 import org.coderdreams.locking.LockingWebSocketBehavior;
 import org.coderdreams.locking.RecordAccess;
-import org.coderdreams.locking.msg.LockPublishMsg;
 import org.coderdreams.webapp.components.DisplayLocksPanel;
-import org.redisson.api.listener.MessageListener;
 
 
-public class EditRecordPage extends WebPage implements MessageListener<LockPublishMsg>, LockablePage {
+public class EditRecordPage extends WebPage implements LockablePage {
 
 	@SpringBean private LockingService lockingService;
 
-	protected boolean isRecordLocked = false;
+	private boolean isRecordLocked = false;
     private boolean showedNotification = false;
     private boolean multipleViewers = false;
 	private final RecordAccess access;
@@ -88,10 +86,4 @@ public class EditRecordPage extends WebPage implements MessageListener<LockPubli
 	@Override public void setShowedNotification(boolean showedNotification) { this.showedNotification = showedNotification; }
 	@Override public boolean isMultipleViewers() { return multipleViewers; }
 	@Override public void setMultipleViewers(boolean multipleViewers) { this.multipleViewers = multipleViewers; }
-
-	@Override
-	public void onMessage(CharSequence channel, LockPublishMsg msg) {
-		onLockMessage(channel, msg);
-	}
-
 }

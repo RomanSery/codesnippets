@@ -16,8 +16,9 @@ import org.coderdreams.locking.msg.LockPublishMsg;
 import org.coderdreams.locking.msg.UpdateDisplayLocksMsg;
 import org.coderdreams.locking.msg.WebSocketMsg;
 import org.coderdreams.util.Utils;
+import org.redisson.api.listener.MessageListener;
 
-public interface LockablePage {
+public interface LockablePage extends MessageListener<LockPublishMsg> {
 
     RecordAccess getRecordAccess();
     int getRecordId();
@@ -52,8 +53,7 @@ public interface LockablePage {
     }
 
 
-    default void onLockMessage(CharSequence channel, LockPublishMsg msg) {
-
+    default void onMessage(CharSequence channel, LockPublishMsg msg) {
         Application application = Application.get(applicationName());
         WebSocketSettings webSocketSettings = WebSocketSettings.Holder.get(application);
         IWebSocketConnectionRegistry webSocketConnectionRegistry = webSocketSettings.getConnectionRegistry();
@@ -80,7 +80,6 @@ public interface LockablePage {
                 connection.sendMessage(new UpdateDisplayLocksMsg());
             }
         }
-
     }
 
 }
