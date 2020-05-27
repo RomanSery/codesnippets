@@ -5,16 +5,15 @@ import org.apache.wicket.Session;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
-import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.registry.IKey;
 import org.apache.wicket.protocol.ws.api.registry.PageIdKey;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.coderdreams.locking.LockablePage;
 import org.coderdreams.locking.LockingService;
-import org.coderdreams.locking.LockingWebSocketBehavior;
 import org.coderdreams.locking.RecordAccess;
 import org.coderdreams.webapp.components.DisplayLocksPanel;
 
@@ -59,11 +58,7 @@ public class EditRecordPage extends WebPage implements LockablePage {
 		displayLocksPanel = new DisplayLocksPanel("displayLocksPanel", access.getListenerId(), getRecordId());
 		add(displayLocksPanel.setOutputMarkupId(true));
 
-		add(new LockingWebSocketBehavior(lockingService, getRecordId(), currUserId, getRecordAccess()) {
-			private static final long serialVersionUID = 1L;
-			@Override protected void updateDisplayLocksPanel(WebSocketRequestHandler handler) { handler.add(displayLocksPanel); }
-		});
-
+		addWebSocketBehavior(this, lockingService);
 
 		add(new Label("heading", String.format("Editing record %d as user %d", recordId, currUserId)));
 		add(new Label("lockMsg", access.isRecordLocked() ? "Record Locked" : "Record Un-locked"));
@@ -86,4 +81,5 @@ public class EditRecordPage extends WebPage implements LockablePage {
 	@Override public void setShowedNotification(boolean showedNotification) { this.showedNotification = showedNotification; }
 	@Override public boolean isMultipleViewers() { return multipleViewers; }
 	@Override public void setMultipleViewers(boolean multipleViewers) { this.multipleViewers = multipleViewers; }
+	@Override public Panel displayLocksPanel() { return displayLocksPanel; }
 }

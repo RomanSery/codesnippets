@@ -26,13 +26,4 @@ public final class LockPublishMsg implements Serializable {
     public long getNumLocks() {
         return numLocks;
     }
-
-    @Override
-    public String toString() {
-        return "LockPublishMsg{" +
-                "objectId=" + objectId +
-                ", userId=" + userId +
-                ", numLocks=" + numLocks +
-                '}';
-    }
 }

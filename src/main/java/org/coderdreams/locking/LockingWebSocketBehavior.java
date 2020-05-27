@@ -10,7 +10,7 @@ import org.coderdreams.locking.msg.UpdateDisplayLocksMsg;
 import org.coderdreams.locking.msg.WebSocketMsg;
 
 
-public abstract class LockingWebSocketBehavior extends WebSocketBehavior {
+abstract class LockingWebSocketBehavior extends WebSocketBehavior {
     private static final long serialVersionUID = 1L;
 
     private final LockingService lockingService;
@@ -18,7 +18,7 @@ public abstract class LockingWebSocketBehavior extends WebSocketBehavior {
     private final int currUserId;
     private final RecordAccess access;
 
-    public LockingWebSocketBehavior(LockingService lockingService, int lockObjId, int currUserId, RecordAccess access) {
+    LockingWebSocketBehavior(LockingService lockingService, int lockObjId, int currUserId, RecordAccess access) {
         this.lockingService = lockingService;
         this.lockObjId = lockObjId;
         this.currUserId = currUserId;

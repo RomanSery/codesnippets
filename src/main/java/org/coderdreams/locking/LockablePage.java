@@ -5,8 +5,11 @@ import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.ws.WebSocketSettings;
 import org.apache.wicket.protocol.ws.api.IWebSocketConnection;
+import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.registry.IKey;
 import org.apache.wicket.protocol.ws.api.registry.IWebSocketConnectionRegistry;
 import org.apache.wicket.request.Url;
@@ -31,6 +34,15 @@ public interface LockablePage extends MessageListener<LockPublishMsg> {
     void setShowedNotification(boolean showedNotification);
     boolean isMultipleViewers();
     void setMultipleViewers(boolean multipleViewers);
+    Panel displayLocksPanel();
+
+    default void addWebSocketBehavior(WebPage page, LockingService lockingService) {
+        page.add(new LockingWebSocketBehavior(lockingService, getRecordId(), getUserId(), getRecordAccess()) {
+            @Override protected void updateDisplayLocksPanel(WebSocketRequestHandler handler) {
+                handler.add(displayLocksPanel());
+            }
+        });
+    }
 
     default void renderHeadLockingScripts(IHeaderResponse response) {
 
