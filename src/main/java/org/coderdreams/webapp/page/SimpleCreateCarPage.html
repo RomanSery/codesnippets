@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Car database</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous" />
+</head>
+
+<body>
+    <main role="main" class="container">
+        <div class="page-header position-relative">
+            <div class="space-6"></div>
+            <h1>Add new Car</h1>
+        </div>
+
+        <div id="feedbackPanel"><span wicket:id="feedback"/></div>
+
+        <form wicket:id="carForm" class="form-horizontal">
+            <span wicket:id="year"></span>
+            <span wicket:id="make"></span>
+            <span wicket:id="model"></span>
+            <div class="clearfix">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button wicket:id="saveButton" class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+
+    </main>
+</body>
+</html>
