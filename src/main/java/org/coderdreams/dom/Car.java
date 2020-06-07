@@ -2,7 +2,11 @@ package org.coderdreams.dom;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import org.coderdreams.enums.CarCondition;
 
 @Entity
 @Table(name = "car")
@@ -21,8 +25,12 @@ public class Car extends BaseEntity {
 	@Column(name = "car_mileage")
 	private Integer mileage;
 
+	@Enumerated(value = EnumType.STRING)
 	@Column(name = "car_condition")
-	private String condition;
+	private CarCondition condition;
+
+	@Column(name = "engine_starts")
+	private Boolean engineStarts;
 
 	public Car() {
 		super();
@@ -60,11 +68,19 @@ public class Car extends BaseEntity {
 		this.mileage = mileage;
 	}
 
-	public String getCondition() {
+	public CarCondition getCondition() {
 		return condition;
 	}
 
-	public void setCondition(String condition) {
+	public void setCondition(CarCondition condition) {
 		this.condition = condition;
+	}
+
+	public Boolean getEngineStarts() {
+		return engineStarts;
+	}
+
+	public void setEngineStarts(Boolean engineStarts) {
+		this.engineStarts = engineStarts;
 	}
 }

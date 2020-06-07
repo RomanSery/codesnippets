@@ -6,13 +6,15 @@
     <title>Car database</title>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 </head>
 
 <body>
     <main role="main" class="container">
         <div class="page-header position-relative">
             <div class="space-6"></div>
-            <h1>Simple Add new Car</h1>
+            <h1>Complex Add new Car</h1>
         </div>
 
         <div id="feedbackPanel"><span wicket:id="feedback"/></div>
@@ -21,6 +23,14 @@
             <span wicket:id="year"></span>
             <span wicket:id="make"></span>
             <span wicket:id="model"></span>
+
+            <span wicket:id="rareCar">
+                <span wicket:id="mileage"></span>
+                <span wicket:id="condition"></span>
+                <span wicket:id="engineStarts"></span>
+            </span>
+
+
             <div class="clearfix">
                 <div class="col-sm-offset-4 col-sm-8">
                     <button wicket:id="saveButton" class="btn btn-primary" type="submit">Save</button>

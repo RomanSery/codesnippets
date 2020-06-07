@@ -10,6 +10,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.coderdreams.dao.CarRepository;
 import org.coderdreams.dom.Car;
 import org.coderdreams.webapp.BasePage;
+import org.coderdreams.webapp.page.IBasePage;
 import org.coderdreams.wicketfields.FieldArgs.Builder;
 import org.coderdreams.wicketfields.event.InitPanelFieldsEvent;
 import org.coderdreams.wicketfields.fields.numeric.NumberSpinnerField;
