@@ -25,7 +25,7 @@
     <jcl-over-slf4j.version>1.7.24</jcl-over-slf4j.version>
     <jackson.version>2.10.1</jackson.version>
     <hibernate.version>5.4.1.Final</hibernate.version>
-    <mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+    <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
   </properties>
 
   <dependencies>
