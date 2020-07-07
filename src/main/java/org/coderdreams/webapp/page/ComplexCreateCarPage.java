@@ -77,8 +77,6 @@ public class ComplexCreateCarPage extends BasePage implements IBasePage {
             }
         });
 
-
-
         carForm.add(new SingleClickIndicatingAjaxButton("saveButton", carForm, true, null) {
             @Override protected void onSubmit(AjaxRequestTarget target) {
                 String errMsg = NewCarValidator.validate(newCar);

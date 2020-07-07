@@ -16,6 +16,7 @@ import org.apache.wicket.settings.RequestCycleSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.coderdreams.dao.UserLockRepository;
 import org.coderdreams.service.EmailService;
+import org.coderdreams.util.ActiveAjaxListener;
 import org.coderdreams.util.CustomRequestLogger;
 import org.coderdreams.util.TxtContentResourceLoader;
 import org.coderdreams.webapp.autocomplete.DropdownSuggestionsPage;
@@ -39,6 +40,8 @@ public class SampleApplication extends WebApplication {
         super.init();
         this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+
+        getAjaxRequestTargetListeners().add(new ActiveAjaxListener());
 
         getResourceSettings().getStringResourceLoaders().add(new TxtContentResourceLoader());
 
