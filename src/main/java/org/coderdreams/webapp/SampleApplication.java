@@ -1,6 +1,9 @@
 package org.coderdreams.webapp;
 
+import java.util.function.Function;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.request.handler.ComponentNotFoundException;
 import org.apache.wicket.core.request.handler.EmptyAjaxRequestHandler;
 import org.apache.wicket.core.request.handler.ListenerInvocationNotAllowedException;
@@ -18,6 +21,7 @@ import org.coderdreams.dao.UserLockRepository;
 import org.coderdreams.service.EmailService;
 import org.coderdreams.util.ActiveAjaxListener;
 import org.coderdreams.util.CustomRequestLogger;
+import org.coderdreams.util.DeDupeAjaxRequestHandler;
 import org.coderdreams.util.TxtContentResourceLoader;
 import org.coderdreams.webapp.autocomplete.DropdownSuggestionsPage;
 import org.coderdreams.webapp.page.HomePage;
@@ -50,6 +54,8 @@ public class SampleApplication extends WebApplication {
         getRequestLoggerSettings().setRequestsWindowSize(5); //set # of requests to store
         getRequestCycleSettings().setRenderStrategy(RequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
+        setAjaxRequestTargetProvider(new DeDupeAjaxRequestTargetProvider());
+
         userLockRepository.deleteAll();
 
         this.mountPage("/searchsuggestions", DropdownSuggestionsPage.class);
@@ -77,6 +83,13 @@ public class SampleApplication extends WebApplication {
         });
 
         panelFactory.initFactory();
+    }
+
+    private static class DeDupeAjaxRequestTargetProvider implements Function<Page, AjaxRequestTarget> {
+        @Override
+        public AjaxRequestTarget apply(Page components) {
+            return new DeDupeAjaxRequestHandler(components);
+        }
     }
 
     @Override
