@@ -19,7 +19,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <wicket.version>8.8.0</wicket.version>
-    <springframework.version>5.2.6.RELEASE</springframework.version>
+    <springframework.version>6.0.0</springframework.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <jcl-over-slf4j.version>1.7.24</jcl-over-slf4j.version>
